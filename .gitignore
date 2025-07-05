@@ -1,0 +1,3 @@
+extra.txt
+lesson/**/node_modules/
+lesson/**/package-lock.json

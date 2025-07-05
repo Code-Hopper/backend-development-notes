@@ -1,0 +1,3 @@
+initiate node package 
+
+npm init
