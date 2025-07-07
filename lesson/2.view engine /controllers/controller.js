@@ -13,7 +13,7 @@ let data = [
 
 let getHome = (req, res) => {
     // res.status(200).json({ message: "this is home page" })
-    res.status(200).render("index", {emojies : data})
+    res.status(200).render("index", { emojies: data, craetedBy: "Amey Khondekar" })
 }
 
 let getAbout = (req, res) => {
@@ -23,7 +23,13 @@ let getAbout = (req, res) => {
 
 let getContact = (req, res) => {
     // res.status(200).json({ message: "this is contact page" })
-    res.status(200).render("contact")
+    res.status(200).render("contact",{message : ""})
 }
 
-export { getHome, getAbout, getContact }
+let postContact = (req, res) => {
+    console.log("trying to post data from form")
+    console.log(req.body)
+    res.status(202).render("contact",{message: "data reached the server !"})
+}
+
+export { getHome, getAbout, getContact, postContact }

@@ -1,4 +1,11 @@
 <%- include('includes/header.ejs'); -%>
-
     <h1>this is contact page</h1>
-<%- include('includes/footer.ejs'); -%>
+    <form action="/contact" method="POST">
+        <input type="text" name="name" placeholder="enter name">
+        <input type="text" name="phone" placeholder="enter phone">
+        <button type="submit">submit</button>
+    </form>
+
+    <h1>message : <%=message %> </h1>
+
+    <%- include('includes/footer.ejs'); -%>
