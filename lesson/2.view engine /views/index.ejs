@@ -1,6 +1,14 @@
 <%- include('includes/header.ejs'); -%>
 
     <div class="container">
+
+        <form class="addEmojiFrom" action="/add-emoji" method="post">
+            <input type="text" name="name" placeholder="name">
+            <input type="text" name="icon" placeholder="icon">
+            <input type="text" name="code" placeholder="code">
+            <button>Add</button>
+        </form>
+
         <div class="elements">
             <!-- map -->
             <% emojies.forEach((emoji)=>{ %>

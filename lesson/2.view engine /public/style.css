@@ -4,10 +4,6 @@
     font-family: sans-serif;
 }
 
-.container {
-    width: 100%;
-}
-
 .elements {
     width: 100%;
     height: 500px;
@@ -18,6 +14,12 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+}
+
+@media screen and (max-width:990px) {
+    .elements {
+        grid-template-columns: repeat(3,1fr) !important;
+    }
 }
 
 .name {
@@ -45,4 +47,21 @@
     background-color: white;
     color: black;
     border-radius: 24px;
+}
+
+.addEmojiFrom{
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.addEmojiFrom input{
+    padding: 1rem;
+}
+
+.addEmojiFrom button{
+    background: green;
+    color: white;
+    font-weight: bold;
+    padding: 1rem;
 }
