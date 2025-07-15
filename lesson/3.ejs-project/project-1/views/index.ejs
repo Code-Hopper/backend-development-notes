@@ -1,4 +1,15 @@
 <%- include("./includes/header.ejs") %>
-<h1>this is index page</h1>
-<span class="fa-solid fa-home"></span>
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="entry">
+            <form class="enrty-form" action="/enter-chat" method="post">
+                <h1 class="text-light">Enter the ChatRoom</h1>
+                <input name="name" class="form-control" placeholder="enter by name..." type="text">
+                <button class="btn btn-success">enrty</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 <%- include("./includes/footer.ejs") %>
