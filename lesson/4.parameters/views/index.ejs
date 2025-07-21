@@ -1,0 +1,13 @@
+<%- include("./partials/header.ejs")%>
+
+    <% if(data) { %>
+
+    <h1>welcome <%= data.name %> !</h1>
+    <h1>from <%= data.city %> !</h1>
+    <h1> <%= data.age %> years old !</h1>
+
+    <% } else { %>
+        <%=message%>
+    <% } %>
+
+<%- include("./partials/footer.ejs")%>

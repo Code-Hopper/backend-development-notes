@@ -6,6 +6,10 @@ let home = (req, res) => {
     res.status(200).render("index")
 }
 
+let chatRoom  = (req,res) => {
+    
+}
+
 let enterChat = (req, res) => {
     console.log(req.body.name)
 
