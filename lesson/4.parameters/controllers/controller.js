@@ -4,6 +4,8 @@ let getHome = (req, res) => {
 
     try {
 
+        // req object (which has all the path parameters)
+
         let data = req.params
 
         if (!data.name && !data.city && !data.age) {
@@ -22,7 +24,23 @@ let pathParam = (req, res) => {
 }
 
 let queryParam = (req, res) => {
-    // res.status(200).render("index")
+
+    // to read query params 
+
+    try {
+
+
+
+        let data = req.query
+
+        if (!data.data) {
+            throw ("no data avaiable !")
+        }
+
+        res.status(200).json({ message: "got some data !", data })
+    } catch (err) {
+        res.status(200).json({ message: "no data found !", err })
+    }
 }
 
 export { getHome, pathParam, queryParam }
