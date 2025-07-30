@@ -14,24 +14,35 @@ let getFiltredTechnologies = (req, res) => {
 
     let { duration } = req.query
 
+    let { scope } = req.query
+
     console.log(req.query)
 
     try {
-        if (!difficulty && !duration) {
+        if (!difficulty && !duration && !scope) {
             throw ("invalid request please set difficulty/duration parameters !")
         }
 
-        let data = []
+        let data = technologies
 
         if (difficulty) {
-            data = technologies.filter((technology) => {
+            data = data.filter((technology) => {
                 return technology.difficulty.toLowerCase() == difficulty.toLowerCase()
             })
         }
 
-        if (duration) { 
-            data = technologies.filter((technology) => {
+        if (duration) {
+            data = data.filter((technology) => {
                 return technology.duration == duration
+            })
+        }
+
+        if (scope) {
+            data = data.filter((technology) => {
+                return technology.scope.some((item) => {
+                    return item.toLowerCase() === scope.toLowerCase()
+                }
+                )
             })
         }
 
@@ -39,7 +50,7 @@ let getFiltredTechnologies = (req, res) => {
             throw ("data not found !")
         }
 
-        res.status(200).json({ message: "data you were requesting !", data })
+        res.status(200).json({ message: "data you were requesting !", we_got: `${data.length} matching results`, data })
 
     } catch (err) {
         res.status(400).json({ message: err })
