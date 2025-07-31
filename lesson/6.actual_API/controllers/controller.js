@@ -58,4 +58,28 @@ let getFiltredTechnologies = (req, res) => {
 
 }
 
-export { getRandomTechnology, getFiltredTechnologies }
+
+let getTechnologyBasedOnId = (req, res) => {
+    try {
+
+        let { id } = req.params
+
+
+        if (isNaN(id)) {
+            throw ({ status: 400, message: "id not provided/invalid !" })
+        }
+
+        let data = technologies.filter(technology => technology.id == id)
+
+        if (data.length < 1) {
+            throw ({ status: 404, message: `technology not found for id ${id}` })
+        }
+
+        res.status(200).json({ message: "the tech you were requesting is : ", data })
+
+    } catch (err) {
+        res.status(err.status).json({ message: err.message })
+    }
+}
+
+export { getRandomTechnology, getFiltredTechnologies, getTechnologyBasedOnId }
