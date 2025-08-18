@@ -24,4 +24,19 @@ let postEntry = async (req, res) => {
     }
 }
 
-export { getHome, postEntry }
+let getEntry = async (req, res) => {
+    try {
+
+        let result = await dataModel.find({})
+
+        console.log(result)
+
+        res.status(200).json({ message: "got this data from database !", result })
+
+    } catch (err) {
+        console.log("unable to get any data from database : ", err)
+        res.status(500).json({ message: "unable to get data at this moment please try again !" })
+    }
+}
+
+export { getHome, postEntry, getEntry }
