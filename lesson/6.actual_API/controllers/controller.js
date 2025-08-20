@@ -1,15 +1,26 @@
 import { technologies } from "../database.js"
+import "../database/conn.js"
+import { techModel } from "../models/techModel.js"
 
-let getRandomTechnology = (req, res) => {
+let getRandomTechnology = async (req, res) => {
+    try {
+        let randomNumber = Math.round((Math.random() * 49) + 1)
 
-    let randomNumber = Math.round((Math.random() * 49) + 1)
+        let result = await techModel.findOne({ _id: randomNumber })
 
-    let data = technologies.filter((technology) => { return randomNumber == technology.id })
+        if (!result) {
+            throw `unable to find ${randomNumber} !`
+        }
 
-    res.status(200).json({ message: "the random technology to learn !", technology: data })
+        res.status(200).json({ message: "the random technology to learn !", technology: result })
+
+    } catch (err) {
+        console.log("error while fetch random tech from database : ", err)
+        res.status(500).json({ message: "error while sending a random tech please try again later !" })
+    }
 }
 
-let getFiltredTechnologies = (req, res) => {
+let getFiltredTechnologies = async (req, res) => {
     let { difficulty } = req.query
 
     let { duration } = req.query
@@ -23,12 +34,10 @@ let getFiltredTechnologies = (req, res) => {
             throw ("invalid request please set difficulty/duration parameters !")
         }
 
-        let data = technologies
+        let data = await techModel.find({})
 
         if (difficulty) {
-            data = data.filter((technology) => {
-                return technology.difficulty.toLowerCase() == difficulty.toLowerCase()
-            })
+            data = await techModel.find({ difficulty: difficulty })
         }
 
         if (duration) {
@@ -59,26 +68,26 @@ let getFiltredTechnologies = (req, res) => {
 }
 
 
-let getTechnologyBasedOnId = (req, res) => {
+let getTechnologyBasedOnId = async (req, res) => {
     try {
 
         let { id } = req.params
-
 
         if (isNaN(id)) {
             throw ({ status: 400, message: "id not provided/invalid !" })
         }
 
-        let data = technologies.filter(technology => technology.id == id)
+        let data = await techModel.findById(id)
 
-        if (data.length < 1) {
+        if (!data) {
             throw ({ status: 404, message: `technology not found for id ${id}` })
         }
 
         res.status(200).json({ message: "the tech you were requesting is : ", data })
 
     } catch (err) {
-        res.status(err.status).json({ message: err.message })
+        console.log("error while fetch id base data : ", err)
+        res.status(500).json({ message: err.message })
     }
 }
 
